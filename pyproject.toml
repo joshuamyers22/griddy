@@ -1,0 +1,42 @@
+[project]
+name = "signal-grid"
+version = "0.0.0"
+description = "Batch research tool for causal trading-signal grid searches"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "LicenseRef-Proprietary"
+dependencies = [
+    "numpy>=2,<3",
+    "polars>=1.44.1,<2",
+    "statsmodels>=0.15,<0.16",
+]
+
+[project.urls]
+Repository = "https://github.com/joshuamyers22/signal-grid"
+Issues = "https://github.com/joshuamyers22/signal-grid/issues"
+Changelog = "https://github.com/joshuamyers22/signal-grid/blob/main/CHANGELOG.md"
+
+[project.scripts]
+"signal-grid" = "signal_grid.cli:main"
+"signal-grid-regression" = "signal_grid.analysis_cli:main"
+"signal-grid-validate" = "signal_grid.time_validation_cli:main"
+"signal-grid-dataset" = "signal_grid.dataset_cli:main"
+
+[build-system]
+requires = ["hatchling==1.32.0"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = ["pyright==1.1.414", "ruff==0.16.7"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.pyright]
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+include = ["src", "tests"]
