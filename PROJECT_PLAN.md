@@ -1,6 +1,6 @@
 # Project Plan: `griddy`
 
-- Status: M0 bootstrap in progress; implementation milestones remain planned
+- Status: M0 complete; implementation milestones remain planned
 - Date: 2026-09-25
 - Owner: Josh Myers
 - Template: `joshuamyers22/production-project-template` @
@@ -395,8 +395,8 @@ changed, and the adversarial review from
 ### M0 — Repository bootstrap (S)
 
 **Tasks**
-- In a clean checkout of the pinned template revision, run
-  `make new-project NAME=griddy TYPE=python-data-quant DEST=~/Projects/griddy`.
+- Generate the repository from a clean checkout of the pinned template's
+  `python-data-quant` starter and use the approved project name `griddy`.
 - Complete `checklists/REPOSITORY_SETUP.md`: local git identity, `joshuamyers22`
   auth, origin, branch protection, signed commits, and Actions permissions.
 - Commit this plan, the brief, and the SAP.

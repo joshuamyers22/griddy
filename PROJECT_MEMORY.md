@@ -30,6 +30,7 @@ Git history provides the audit trail.
 | Key | State worth retrieving later | Evidence | Last verified |
 |---|---|---|---|
 | `generated-scaffold` | This is the pinned template's `python-data-quant` starter, not yet the planned search engine or `xma` implementation. | `README.md`; `PROJECT_PLAN.md`; `src/griddy/` | 2026-09-25 |
+| `repository-bootstrap` | Public `joshuamyers22/griddy` has M0 branch, CI, signing, Actions, and security controls; solo ownership has a documented review exception. | `docs/REPOSITORY_BOOTSTRAP.md`; GitHub ruleset `24027427` | 2026-09-25 |
 
 ## Verified traps and failed approaches
 
