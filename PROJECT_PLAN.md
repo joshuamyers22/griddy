@@ -1,6 +1,6 @@
 # Project Plan: `griddy`
 
-- Status: M0 complete; implementation milestones remain planned
+- Status: M0–M1 complete; M2 is next
 - Date: 2026-09-25
 - Owner: Josh Myers
 - Template: `joshuamyers22/production-project-template` @
@@ -43,7 +43,7 @@ Python ≥ 3.12.
 | Metrics | 252-day annualization. CAGR from n/252 years, volatility (ddof = 1), Sharpe versus the constant cash rate, beta and Jensen alpha versus buy-and-hold of the traded asset, changes/year, average position, cash weight. Max drawdown only on the scalar path. Annual table. |
 | Multiple testing | Pearson correlation of candidate returns. Effective N three ways: EffN-B (average correlation), EffN-G (Galwey), and EffN-max (simulated correlated Gaussian maxima inverted through Gauss–Hermite E[max]). PSR, DSR with SR0 = sd(SR) · E[max Z](EffN-B), "haircut" = SR − SR0, a parametric max-T familywise p-value, empirical-Bayes shrunk Sharpe, and a Galwey redundancy decomposition by grid axis. |
 | Other | Average (ensemble) system, `--best`, crossover listing, yfinance loader, CSV I/O, matplotlib `show()` plots. |
-| Reference result | The upstream worked example reports 597 candidates and 5,878 observations, with MeanCorr .665, EffN-B 200.58, EffN-G 20.99, EffN-max 6.95, best IEF 1/7 SR .714, DSR .982, Max-p .0068. Its exact command, trade asset, input hash, and environment must be captured at M1 before these figures become acceptance criteria. |
+| Reference result | The pinned upstream worked example has 597 candidates and 5,878 observations, with MeanCorr .665, EffN-B 200.58, EffN-G 20.99, EffN-max 6.95, best IEF 1/7 signal trading SPY with SR .714, DSR .982, and Max-p .0068. M1 captured the exact command, input hash, environment, and matching local figures in `docs/UPSTREAM_CAPTURE.md`. |
 
 **Design ideas we keep:**
 - Compute each feature once per unique parameter tuple, then build candidates by
@@ -366,8 +366,8 @@ seed = 12345
 ```
 
 This configuration has `3 × 1 × 199 × 1 = 597` candidate signal rules **for
-one trade asset**. The 597-candidate worked-example command and its trade asset
-must still be verified from the pinned source at M1. A three-trade-asset run has
+one trade asset**. M1 verified from the pinned source that SPY is the traded
+asset. A three-trade-asset run has
 1,791 candidate/trade rows. The previous example (`1:10`, `20:200:10`, three
 signal and three trade assets) had 1,710 rows and could not verify the stated
 597-candidate result.
@@ -383,7 +383,8 @@ combine = ["all", "vote", "mean_position"]
 
 The upstream grammar keeps working through the compat subcommand:
 `griddy xma "[SPY IEF TLT]" 1 2:200 --trade SPY --terse --deflate`.
-M1 pins the exact worked-example command before treating this as its oracle.
+The exact worked-example command and source vintage are recorded in
+`docs/UPSTREAM_CAPTURE.md`.
 
 ## 7. Milestones
 
@@ -407,6 +408,10 @@ changed, and the adversarial review from
 
 ### M1 — Upstream capture harness (S)
 
+Completed 2026-09-25. See `docs/UPSTREAM_CAPTURE.md` for the pinned command,
+sample vintage, local vendor reference, synthetic fixture matrix, hashes, and
+double-capture result.
+
 **Tasks**
 - Write `tools/capture_upstream.py`. It checks out upstream at the pinned SHA
   into ignored `.work/`, installs its unpinned deps into a *locked* side
@@ -427,7 +432,8 @@ changed, and the adversarial review from
   - `--annual`;
   - `--deflate`, including the 597-candidate reference run;
   - an asynchronous-calendar case (SPY vs IEF pre-2002).
-- Sample-data handling follows open decision Q3.
+- Sample-data handling follows the M1 decision for Q3: synthetic CI fixtures,
+  with vendor-derived input and captures kept local and ignored.
 
 **Exit criteria**
 - Synthetic fixtures are reproducible: a second capture yields identical content
@@ -643,7 +649,7 @@ scoping).
 |---|---|---|---|
 | Q1 | Project name | M0 | Decided: `griddy` (package `griddy`). |
 | Q2 | License | M0 | Decided: proprietary new code with upstream MIT notice; see ADR-001. |
-| Q3 | Upstream `prices.csv` (Yahoo-derived): local restricted parity input, or permissioned CI artifact | M1 | Use synthetic CI fixtures. Keep the upstream sample local and ignored pending source-terms review. |
+| Q3 | Upstream `prices.csv` (Yahoo-derived): local restricted parity input, or permissioned CI artifact | M1 | Decided: synthetic CI fixtures; upstream sample and derived captures remain local and ignored pending source-terms review. See `docs/UPSTREAM_CAPTURE.md`. |
 | Q4 | Default search ceiling and memory budget | M4 | 250k candidates, 4 GB. |
 | Q5 | Primary selection criterion for walk-forward | M6 | EB-shrunk Sharpe, with Sharpe and DSR as sensitivity analyses. |
 | Q6 | Include cross-sectional ranking rules in v1? | M5 | No (v2). |

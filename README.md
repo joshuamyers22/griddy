@@ -6,12 +6,13 @@ datasets. It will first reproduce the pinned `xma` moving-average search, then
 generalize the search and its evidence. It does not place trades or serve live
 signals.
 
-**Status:** M0 complete; M1 is next. The commands below exercise the generated
+**Status:** M0–M1 complete; M2 is next. The commands below exercise the generated
 data/quant example; the `griddy` search engine and `xma` compatibility
 command are M2–M6 work. Start with the [project plan](PROJECT_PLAN.md),
 [brief](PROJECT_BRIEF.md), [statistical analysis plan](STATISTICAL_ANALYSIS_PLAN.md),
 and [adversarial plan review](ADVERSARIAL_PLAN_REVIEW.md). Consequential design
 choices are recorded in the [ADR index](docs/adr/README.md).
+The [upstream capture record](docs/UPSTREAM_CAPTURE.md) pins the M1 oracle.
 
 ```sh
 make setup
