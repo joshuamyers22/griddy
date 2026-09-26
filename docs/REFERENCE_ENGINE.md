@@ -10,6 +10,7 @@ the separate optional input adapter before this boundary.
 from pathlib import Path
 
 from griddy.dataset import scan_verified_dataset, upstream_adjusted_close_contract
+from griddy.engine.metrics import calculate_core_metrics
 from griddy.engine.reference import (
     ReferenceExecution,
     SmaCrossoverCandidate,
@@ -26,6 +27,7 @@ result = run_sma_crossover(
     ReferenceExecution(periods_per_year=252, cash_rate=0.03, lag=1, cost_bps=5),
 )
 daily = result.frame
+metrics = calculate_core_metrics(result)
 ```
 
 The fast and slow simple moving averages use the signal instrument's own full
@@ -44,8 +46,9 @@ is flat, so an entry on the first evaluated row pays its cost. Every row records
 the signal date and deviation, weights, asset and cash returns, turnover, cost,
 and net return. The result also carries the candidate and execution settings.
 
-This M2 reference supports one long-or-cash candidate. Core metrics, result
-Parquet, run manifest, and CLI are later M2 tasks. Down-state weights, a down
+This M2 reference supports one long-or-cash candidate. The
+[core metric contract](CORE_METRICS.md) summarizes its returns. Result Parquet,
+run manifest, and CLI are later M2 tasks. Down-state weights, a down
 asset, common-family windows, and the block engine are later M3 work. The
 golden tests compare every daily return for the pinned synthetic lag and cost
 cases to 1e-12; the asynchronous SPY/IEF case checks calendar alignment.

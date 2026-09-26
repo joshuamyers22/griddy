@@ -1,6 +1,6 @@
 # Project Plan: `griddy`
 
-- Status: M0–M1 complete; M2 in progress (first two items complete)
+- Status: M0–M1 complete; M2 in progress (first three items complete)
 - Date: 2026-09-25
 - Owner: Josh Myers
 - Template: `joshuamyers22/production-project-template` @
@@ -442,11 +442,12 @@ double-capture result.
 
 ### M2 — Walking skeleton (S)
 
-First two items completed 2026-09-26: strict Polars-first upstream CSV/frame
+First three items completed 2026-09-26: strict Polars-first upstream CSV/frame
 ingest, optional pandas input adapter, immutable versioned adjusted-close
 Parquet publication, and a single-candidate SMA reference engine with lag,
-cost, and cash. See `docs/PARQUET_DATASETS.md` and `docs/REFERENCE_ENGINE.md`.
-The remaining tasks and exit criterion below are still open.
+cost, cash, and core metrics. See `docs/PARQUET_DATASETS.md`,
+`docs/REFERENCE_ENGINE.md`, and `docs/CORE_METRICS.md`. Result publication,
+run CLI, and the full exit criterion below are still open.
 
 **Tasks**
 - Strict ingest of the upstream-format CSV and publication as a versioned
