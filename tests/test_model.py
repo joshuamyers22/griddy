@@ -2,7 +2,7 @@ from datetime import UTC
 from decimal import Decimal
 from unittest import TestCase
 
-from signal_grid.model import Observation, arithmetic_returns
+from griddy.model import Observation, arithmetic_returns
 
 
 class ModelTests(TestCase):

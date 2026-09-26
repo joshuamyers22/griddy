@@ -7,7 +7,7 @@ from unittest import TestCase
 
 import polars as pl
 
-from signal_grid.evidence import (
+from griddy.evidence import (
     SCHEMA_VERSION,
     AnalysisDeclaration,
     SoftwareVersions,

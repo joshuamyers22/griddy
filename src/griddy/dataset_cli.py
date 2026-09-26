@@ -48,7 +48,7 @@ def _created_at(value: str, parser: argparse.ArgumentParser) -> datetime:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(prog="signal-grid-dataset")
+    parser = argparse.ArgumentParser(prog="griddy-dataset")
     subparsers = parser.add_subparsers(dest="command", required=True)
     publish = subparsers.add_parser("publish")
     publish.add_argument("input", type=Path)

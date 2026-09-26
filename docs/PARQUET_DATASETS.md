@@ -1,6 +1,6 @@
 # Parquet Dataset Contract
 
-`signal-grid-dataset` publishes the reference market-observation CSV as an
+`griddy-dataset` publishes the reference market-observation CSV as an
 immutable, date-partitioned Parquet dataset. The implementation uses Polars'
 native stable single-file writer inside deterministic partition directories. It
 does not use `PartitionBy` or inferred Hive schemas because those APIs are marked
@@ -38,13 +38,13 @@ or noncanonical row order. Only after verification does
 disabled because partition columns remain inside every file.
 
 ```sh
-uv run signal-grid-dataset publish data/example.csv data/processed \
+uv run griddy-dataset publish data/example.csv data/processed \
   --dataset-version 2026-01-02.1 \
   --source-id fixture/example.csv \
   --revision "$(git rev-parse HEAD)" \
   --created-at-utc "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
-uv run signal-grid-dataset verify data/processed/2026-01-02.1
+uv run griddy-dataset verify data/processed/2026-01-02.1
 ```
 
 ## Compatibility and trust boundaries

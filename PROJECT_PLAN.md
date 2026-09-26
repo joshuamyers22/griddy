@@ -1,4 +1,4 @@
-# Project Plan: `signal-grid`
+# Project Plan: `griddy`
 
 - Status: M0 bootstrap in progress; implementation milestones remain planned
 - Date: 2026-09-25
@@ -142,7 +142,7 @@ optional extra whose output is converted and published as a versioned dataset
 before any run.
 
 ```text
-src/signal_grid/
+src/griddy/
 ├── data/          contract.py, ingest.py (strict CSV), dataset.py (archetype Parquet publisher/verifier),
 │                  calendar.py (frequency → periods_per_year, session alignment), adapters/yfinance.py [extra]
 ├── space.py       search-space parsing, lazy enumeration, exact counting, canonical candidate IDs
@@ -382,7 +382,7 @@ combine = ["all", "vote", "mean_position"]
 ```
 
 The upstream grammar keeps working through the compat subcommand:
-`signal-grid xma "[SPY IEF TLT]" 1 2:200 --trade SPY --terse --deflate`.
+`griddy xma "[SPY IEF TLT]" 1 2:200 --trade SPY --terse --deflate`.
 M1 pins the exact worked-example command before treating this as its oracle.
 
 ## 7. Milestones
@@ -396,7 +396,7 @@ changed, and the adversarial review from
 
 **Tasks**
 - In a clean checkout of the pinned template revision, run
-  `make new-project NAME=signal-grid TYPE=python-data-quant DEST=~/Projects/signal-grid`.
+  `make new-project NAME=griddy TYPE=python-data-quant DEST=~/Projects/griddy`.
 - Complete `checklists/REPOSITORY_SETUP.md`: local git identity, `joshuamyers22`
   auth, origin, branch protection, signed commits, and Actions permissions.
 - Commit this plan, the brief, and the SAP.
@@ -641,7 +641,7 @@ scoping).
 
 | # | Question | Needed by | Recommendation |
 |---|---|---|---|
-| Q1 | Project name | M0 | Decided: `signal-grid` (package `signal_grid`). |
+| Q1 | Project name | M0 | Decided: `griddy` (package `griddy`). |
 | Q2 | License | M0 | Decided: proprietary new code with upstream MIT notice; see ADR-001. |
 | Q3 | Upstream `prices.csv` (Yahoo-derived): local restricted parity input, or permissioned CI artifact | M1 | Use synthetic CI fixtures. Keep the upstream sample local and ignored pending source-terms review. |
 | Q4 | Default search ceiling and memory budget | M4 | 250k candidates, 4 GB. |

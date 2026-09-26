@@ -7,7 +7,7 @@
 
 ## Context and forces
 
-`signal-grid` starts from the production template's private, proprietary
+`griddy` starts from the production template's private, proprietary
 license. M1–M3 plan to study and potentially port portions of
 `vivek-v-rao/moving-average-systems` at commit
 `91e9e35a9eca36d314138302fb86075f05cb71c0`. That upstream project carries
@@ -22,7 +22,7 @@ license decision.
 
 ## Decision
 
-Keep new `signal-grid` code proprietary and the repository private by default.
+Keep new `griddy` code proprietary and the repository private by default.
 Retain the upstream notice verbatim in `THIRD_PARTY_NOTICES.md`, and identify
 ported files when they are introduced. No upstream source code or vendor price
 data is included at M0. Redistribution of upstream-derived code or data requires

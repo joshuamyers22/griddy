@@ -9,7 +9,7 @@ from unittest import TestCase
 
 import polars as pl
 
-from signal_grid.dataset import (
+from griddy.dataset import (
     DatasetContract,
     DatasetContractError,
     DatasetIntegrityError,

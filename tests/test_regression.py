@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import polars as pl
 
-from signal_grid.regression import fit_simple_ols
+from griddy.regression import fit_simple_ols
 
 
 class RegressionTests(TestCase):

@@ -1,4 +1,4 @@
-# signal-grid Project Memory
+# griddy Project Memory
 
 This is a bounded retrieval index for durable project knowledge. It is not an
 activity log, task tracker, transcript, or source of truth. Verify every entry
@@ -29,7 +29,7 @@ Git history provides the audit trail.
 
 | Key | State worth retrieving later | Evidence | Last verified |
 |---|---|---|---|
-| `generated-scaffold` | This is the pinned template's `python-data-quant` starter, not yet the planned search engine or `xma` implementation. | `README.md`; `PROJECT_PLAN.md`; `src/signal_grid/` | 2026-09-25 |
+| `generated-scaffold` | This is the pinned template's `python-data-quant` starter, not yet the planned search engine or `xma` implementation. | `README.md`; `PROJECT_PLAN.md`; `src/griddy/` | 2026-09-25 |
 
 ## Verified traps and failed approaches
 

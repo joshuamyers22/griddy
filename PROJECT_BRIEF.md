@@ -206,7 +206,7 @@ This brief follows the `python-data-quant` archetype `PROJECT_BRIEF.md` fields.
 
 | Question | Decision deadline | Owner | ADR |
 |---|---|---|---|
-| Project name: `signal-grid` | M0 | Josh | Decided |
+| Project name: `griddy` | M0 | Josh | Decided |
 | License model: proprietary new code plus MIT upstream notice | M0 | Josh | 001 accepted |
 | Handling of upstream `prices.csv` in tests | M1 | Josh | 008 |
 | Search ceiling and memory budget defaults | M4 | Josh | 004 |

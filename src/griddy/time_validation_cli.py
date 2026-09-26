@@ -17,7 +17,7 @@ from .validation_evidence import build_time_validation_evidence
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(prog="signal-grid-validate")
+    parser = argparse.ArgumentParser(prog="griddy-validate")
     parser.add_argument("input", type=Path)
     parser.add_argument("--response", required=True)
     parser.add_argument("--predictor", required=True)

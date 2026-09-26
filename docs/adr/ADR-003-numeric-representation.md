@@ -7,7 +7,7 @@
 
 ## Context and forces
 
-The archetype uses Decimal for monetary values, but `signal-grid` computes
+The archetype uses Decimal for monetary values, but `griddy` computes
 research price ratios, returns, weights, correlations, and inference over large
 arrays. A Decimal array would not fit the planned NumPy block kernel. Silent
 CSV inference or non-finite values would still make float results unreliable.

@@ -4,9 +4,9 @@ from unittest import TestCase
 
 from test_validation import validation_frame
 
-from signal_grid.evidence import AnalysisDeclaration, SoftwareVersions
-from signal_grid.validation import WalkForwardConfig
-from signal_grid.validation_evidence import (
+from griddy.evidence import AnalysisDeclaration, SoftwareVersions
+from griddy.validation import WalkForwardConfig
+from griddy.validation_evidence import (
     SCHEMA_VERSION,
     build_time_validation_evidence,
 )

@@ -2,7 +2,7 @@ import tempfile
 from pathlib import Path
 from unittest import TestCase
 
-from signal_grid.ingest import load_csv
+from griddy.ingest import load_csv
 
 
 class IngestTests(TestCase):

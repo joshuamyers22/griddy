@@ -1,13 +1,13 @@
-# signal-grid
+# griddy
 
-`signal-grid` is a planned batch research tool for screening causal,
+`griddy` is a planned batch research tool for screening causal,
 rule-based trading signals across declared feature sets and time-series
 datasets. It will first reproduce the pinned `xma` moving-average search, then
 generalize the search and its evidence. It does not place trades or serve live
 signals.
 
 **Status:** M0 repository scaffold. The commands below exercise the generated
-data/quant example; the `signal-grid` search engine and `xma` compatibility
+data/quant example; the `griddy` search engine and `xma` compatibility
 command are M2–M6 work. Start with the [project plan](PROJECT_PLAN.md),
 [brief](PROJECT_BRIEF.md), [statistical analysis plan](STATISTICAL_ANALYSIS_PLAN.md),
 and [adversarial plan review](ADVERSARIAL_PLAN_REVIEW.md). Consequential design
@@ -17,25 +17,25 @@ choices are recorded in the [ADR index](docs/adr/README.md).
 make setup
 make check
 make build
-uv run signal-grid data/example.csv
+uv run griddy data/example.csv
 ```
 
 Publish and verify an immutable, contract-checked Parquet dataset:
 
 ```sh
-uv run signal-grid-dataset publish data/example.csv data/processed \
+uv run griddy-dataset publish data/example.csv data/processed \
   --dataset-version 2026-01-02.1 \
   --source-id fixture/example.csv \
   --revision "$(git rev-parse HEAD)" \
   --created-at-utc "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-uv run signal-grid-dataset verify data/processed/2026-01-02.1
+uv run griddy-dataset verify data/processed/2026-01-02.1
 ```
 
 The separate evidence command turns a pre-specified simple OLS run into a stable,
 reviewable JSON artifact:
 
 ```sh
-uv run signal-grid-regression data/regression-example.csv \
+uv run griddy-regression data/regression-example.csv \
   --response return --predictor factor \
   --analysis-id factor-return-example \
   --analysis-plan templates/STATISTICAL_ANALYSIS_PLAN.md \
@@ -51,7 +51,7 @@ For temporal prediction, run executable expanding-window validation with explici
 feature and target availability timestamps:
 
 ```sh
-uv run signal-grid-validate data/walk-forward-example.csv \
+uv run griddy-validate data/walk-forward-example.csv \
   --response return --predictor factor \
   --prediction-time prediction_time \
   --feature-available-at feature_available_at \

@@ -9,7 +9,7 @@ from .ingest import load_csv
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(prog="signal-grid")
+    parser = argparse.ArgumentParser(prog="griddy")
     parser.add_argument("input", type=Path)
     args = parser.parse_args()
     dataset = load_csv(args.input)

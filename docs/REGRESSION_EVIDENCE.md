@@ -1,6 +1,6 @@
 # Regression Evidence Contract
 
-`signal-grid-regression` is a narrow reference path for an intercept plus one
+`griddy-regression` is a narrow reference path for an intercept plus one
 predictor using `statsmodels.api.OLS`. It exists to demonstrate the minimum
 provenance and uncertainty expected from an inference artifact, not to prescribe
 simple OLS for every quantitative problem.
@@ -41,7 +41,7 @@ meaning changes.
 
 ## Time-aware validation contract
 
-`signal-grid-validate` emits `quant-time-validation-evidence/v1` for a
+`griddy-validate` emits `quant-time-validation-evidence/v1` for a
 non-overlapping expanding-window evaluation. Input rows must already be in unique,
 strict prediction-time order. Each row names when its feature and target became
 available. The command rejects a feature timestamp after prediction and a target

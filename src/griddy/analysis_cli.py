@@ -16,7 +16,7 @@ from .evidence import (
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(prog="signal-grid-regression")
+    parser = argparse.ArgumentParser(prog="griddy-regression")
     parser.add_argument("input", type=Path)
     parser.add_argument("--response", required=True)
     parser.add_argument("--predictor", required=True)

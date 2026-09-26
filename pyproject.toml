@@ -1,5 +1,5 @@
 [project]
-name = "signal-grid"
+name = "griddy"
 version = "0.0.0"
 description = "Batch research tool for causal trading-signal grid searches"
 readme = "README.md"
@@ -12,15 +12,15 @@ dependencies = [
 ]
 
 [project.urls]
-Repository = "https://github.com/joshuamyers22/signal-grid"
-Issues = "https://github.com/joshuamyers22/signal-grid/issues"
-Changelog = "https://github.com/joshuamyers22/signal-grid/blob/main/CHANGELOG.md"
+Repository = "https://github.com/joshuamyers22/griddy"
+Issues = "https://github.com/joshuamyers22/griddy/issues"
+Changelog = "https://github.com/joshuamyers22/griddy/blob/main/CHANGELOG.md"
 
 [project.scripts]
-"signal-grid" = "signal_grid.cli:main"
-"signal-grid-regression" = "signal_grid.analysis_cli:main"
-"signal-grid-validate" = "signal_grid.time_validation_cli:main"
-"signal-grid-dataset" = "signal_grid.dataset_cli:main"
+"griddy" = "griddy.cli:main"
+"griddy-regression" = "griddy.analysis_cli:main"
+"griddy-validate" = "griddy.time_validation_cli:main"
+"griddy-dataset" = "griddy.dataset_cli:main"
 
 [build-system]
 requires = ["hatchling==1.32.0"]

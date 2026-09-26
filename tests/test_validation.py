@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import polars as pl
 
-from signal_grid.validation import (
+from griddy.validation import (
     WalkForwardConfig,
     WalkForwardResult,
     validate_walk_forward,
