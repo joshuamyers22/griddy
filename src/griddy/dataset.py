@@ -98,6 +98,29 @@ def market_observation_contract() -> DatasetContract:
     )
 
 
+def upstream_adjusted_close_contract() -> DatasetContract:
+    """Long, session-dated float64 prices from an upstream-style CSV."""
+    return DatasetContract(
+        name="upstream-adjusted-closes",
+        schema_version=1,
+        schema=pl.Schema(
+            {
+                "year": pl.Int32,
+                "event_date": pl.Date,
+                "instrument": pl.String,
+                "adjusted_close": pl.Float64,
+                "quote_unit": pl.String,
+                "calendar": pl.String,
+            }
+        ),
+        nullable_columns=frozenset(),
+        partition_columns=("year",),
+        primary_key=("event_date", "instrument"),
+        sort_columns=("year", "event_date", "instrument"),
+        invariant_set="upstream-adjusted-close/v1",
+    )
+
+
 def assert_backward_compatible(
     previous: DatasetContract, current: DatasetContract
 ) -> None:
@@ -147,7 +170,8 @@ def _contract_dict(contract: DatasetContract) -> dict[str, object]:
     }
 
 
-def _validate_frame(frame: pl.DataFrame, contract: DatasetContract) -> None:
+def validate_dataset_frame(frame: pl.DataFrame, contract: DatasetContract) -> None:
+    """Enforce schema, keys, nullability, and domain invariants before writes."""
     if frame.schema != contract.schema:
         raise DatasetContractError(
             f"schema mismatch: expected {contract.schema}, received {frame.schema}"
@@ -179,6 +203,25 @@ def _validate_frame(frame: pl.DataFrame, contract: DatasetContract) -> None:
             raise DatasetContractError(
                 "instrument and unit must be nonblank and trimmed"
             )
+    if contract.invariant_set == "upstream-adjusted-close/v1":
+        if frame.filter(pl.col("year") != pl.col("event_date").dt.year()).height:
+            raise DatasetContractError("year must match the event date")
+        if frame.filter(
+            (pl.col("adjusted_close") <= 0) | ~pl.col("adjusted_close").is_finite()
+        ).height:
+            raise DatasetContractError("adjusted closes must be positive and finite")
+        for name in ("instrument", "quote_unit", "calendar"):
+            if frame.filter(
+                (pl.col(name).str.strip_chars() == "")
+                | (pl.col(name) != pl.col(name).str.strip_chars())
+            ).height:
+                raise DatasetContractError(f"{name} must be nonblank and trimmed")
+        if frame.filter(
+            ~pl.col("instrument").str.contains(r"^[A-Z^][A-Z0-9.^_-]*$")
+        ).height:
+            raise DatasetContractError("instrument contains unsupported characters")
+        if frame["quote_unit"].n_unique() != 1 or frame["calendar"].n_unique() != 1:
+            raise DatasetContractError("quote unit and calendar must be dataset-wide")
 
 
 def _partition_text(value: object) -> str:
@@ -204,7 +247,7 @@ def publish_dataset(
     created_at_utc: datetime,
 ) -> Path:
     """Publish an immutable dataset directory with atomic visibility."""
-    _validate_frame(frame, contract)
+    validate_dataset_frame(frame, contract)
     validate_sha256("source_sha256", source_sha256)
     if not VERSION_PATTERN.fullmatch(dataset_version):
         raise DatasetContractError("dataset version contains unsafe characters")
@@ -463,7 +506,7 @@ def verify_dataset(dataset: Path, *, contract: DatasetContract) -> DatasetVerifi
         if actual_regular_files != allowed_files:
             raise DatasetIntegrityError("dataset contains unmanifested files")
         combined = pl.concat(frames).sort(contract.sort_columns)
-        _validate_frame(combined, contract)
+        validate_dataset_frame(combined, contract)
         if total_rows != dataset_record["rows"]:
             raise DatasetIntegrityError("dataset row count does not match")
     except DatasetIntegrityError:

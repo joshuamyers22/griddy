@@ -6,6 +6,51 @@ native stable single-file writer inside deterministic partition directories. It
 does not use `PartitionBy` or inferred Hive schemas because those APIs are marked
 unstable by Polars.
 
+## M2 adjusted-close input
+
+`publish-upstream` accepts the pinned `xma` wide CSV shape: `Date` followed by
+uppercase ticker columns such as `SPY,IEF,TLT`. `Date,Adj Close` is accepted
+only when `--legacy-symbol` identifies its ticker. Polars is the primary
+in-memory interface through `ingest_upstream_prices(DataFrame | LazyFrame)`;
+`load_upstream_prices_csv` reads file bytes with Polars. An optional
+`ingest_upstream_prices_pandas` adapter accepts a pandas DataFrame after
+installing `griddy[pandas]`. It converts once into Polars and uses the same
+validation and publisher; pandas is absent from the default installation.
+
+Dates must be real, unique, strictly increasing `YYYY-MM-DD` session dates.
+Ticker names must be uppercase. Present adjusted closes must be positive,
+finite numbers. Blank price cells remain absent observations: no price is
+filled, and the ingest result reports missing cells by ticker. Quote unit and
+calendar are explicit caller declarations, not inferred from ticker names or
+checked against an exchange schedule. The publisher does not invent an
+intraday timestamp or claim point-in-time availability for adjusted prices.
+
+The `upstream-adjusted-closes/v1` contract is a long table with `year` (Int32),
+`event_date` (Date), `instrument` (String), `adjusted_close` (Float64),
+`quote_unit` (String), and `calendar` (String). `(event_date, instrument)` is
+unique, and `year` must equal the event date's year. Calendar and quote unit
+must be constant within one version. The dataset is partitioned by year to
+avoid a file per session. Publication, manifest hashing, and verified reads
+use the same immutable writer described below.
+
+```sh
+uv run griddy-dataset publish-upstream \
+  tests/fixtures/upstream/synthetic_prices.csv .work/processed \
+  --dataset-version synthetic-m2-v1 \
+  --source-id synthetic/m1-prices \
+  --revision "$(git rev-parse HEAD)" \
+  --created-at-utc "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+  --quote-unit synthetic --calendar synthetic-weekdays
+uv run griddy-dataset verify .work/processed/synthetic-m2-v1 \
+  --kind upstream-prices
+```
+
+CSV publications hash the exact input bytes. In-memory Polars and adapted
+pandas publications hash their canonical Polars CSV serialization; callers
+should set a `source_id` that identifies this in-memory source. The pinned
+upstream vendor CSV and any derived Parquet dataset remain local under ignored
+`.work/` until source terms permit redistribution and CI access.
+
 ## Published layout
 
 ```text

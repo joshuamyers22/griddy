@@ -6,13 +6,16 @@ datasets. It will first reproduce the pinned `xma` moving-average search, then
 generalize the search and its evidence. It does not place trades or serve live
 signals.
 
-**Status:** M0–M1 complete; M2 is next. The commands below exercise the generated
+**Status:** M0–M1 complete; M2 is in progress. Its upstream price ingest and
+versioned Parquet publication are implemented; the reference engine, metrics,
+result files, and run CLI remain. The commands below exercise the generated
 data/quant example; the `griddy` search engine and `xma` compatibility
 command are M2–M6 work. Start with the [project plan](PROJECT_PLAN.md),
 [brief](PROJECT_BRIEF.md), [statistical analysis plan](STATISTICAL_ANALYSIS_PLAN.md),
 and [adversarial plan review](ADVERSARIAL_PLAN_REVIEW.md). Consequential design
 choices are recorded in the [ADR index](docs/adr/README.md).
 The [upstream capture record](docs/UPSTREAM_CAPTURE.md) pins the M1 oracle.
+The [Parquet dataset contract](docs/PARQUET_DATASETS.md) covers the M2 price input.
 
 ```sh
 make setup
@@ -76,10 +79,10 @@ cannot silently become binary floating point. Use Polars expressions and lazy
 queries for tabular transformations; convert to domain values where precision or
 business invariants require it.
 
-Polars is the default dataframe library. Introduce pandas only behind a narrow
-interop adapter when a required dependency or counterparty API demands it, and
-record that exception in an ADR. Do not maintain parallel Polars and pandas
-implementations of the same calculation.
+Polars is the default dataframe library. Existing pandas price frames are
+accepted through the optional input adapter in [ADR-009](docs/adr/ADR-009-polars-first-inputs.md).
+Do not maintain parallel Polars and pandas implementations of the same
+calculation.
 
 Statsmodels is the default library for statistical inference, econometrics, time
 series, and regression. `fit_simple_ols` demonstrates an explicit

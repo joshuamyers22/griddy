@@ -32,6 +32,7 @@ Git history provides the audit trail.
 | `generated-scaffold` | This is the pinned template's `python-data-quant` starter, not yet the planned search engine or `xma` implementation. | `README.md`; `PROJECT_PLAN.md`; `src/griddy/` | 2026-09-25 |
 | `repository-bootstrap` | Public `joshuamyers22/griddy` has M0 branch, CI, signing, Actions, and security controls; solo ownership has a documented review exception. | `docs/REPOSITORY_BOOTSTRAP.md`; GitHub ruleset `24027427` | 2026-09-25 |
 | `upstream-oracle` | M1 captured the pinned `xma` run: 597 signal rules trade SPY, with 5,878 common observations through 2026-09-24. Synthetic fixtures are committed; vendor-derived captures stay ignored under `.work/`. | `docs/UPSTREAM_CAPTURE.md`; `tests/fixtures/upstream/manifest.json`; `tests/test_upstream_capture.py` | 2026-09-25 |
+| `upstream-price-dataset` | The M2 input contract uses Polars by default, optional pandas conversion, explicit quote unit/calendar, absent rather than filled prices, and year-partitioned immutable float64 Parquet. The search engine is still open M2 work. | `docs/adr/ADR-009-polars-first-inputs.md`; `src/griddy/upstream_prices.py`; `docs/PARQUET_DATASETS.md`; `tests/test_upstream_prices.py` | 2026-09-26 |
 
 ## Verified traps and failed approaches
 

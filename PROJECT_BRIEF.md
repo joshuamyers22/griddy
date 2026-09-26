@@ -52,10 +52,11 @@ This brief follows the `python-data-quant` archetype `PROJECT_BRIEF.md` fields.
 - **Runtime/deployment environment:** Python 3.12 (upstream syntax already requires
   ≥ 3.12). `uv`-locked. Local workstation and CI batch jobs. No deployed service,
   so no container is required beyond the archetype CI.
-- **Tabular engine:** Polars at all tabular boundaries. NumPy inside the numeric
-  kernel behind one explicit conversion. No pandas dependency. yfinance, which
-  returns pandas, is isolated in an optional adapter whose output is published as
-  a Polars/Parquet dataset (ADR-008).
+- **Tabular engine:** Polars at all core tabular boundaries. NumPy inside the
+  numeric kernel behind one explicit conversion. Pandas is a secondary,
+  optional input adapter, with no pandas dependency in the default install.
+  yfinance, which returns pandas, remains a separate future adapter whose
+  output is published as a Polars/Parquet dataset (ADR-008).
 - **Statistical engine:** Statsmodels for multiple-testing adjustments
   (`multipletests`: Holm, BHY) and HAC/autocorrelation utilities. Custom, tested
   implementations for PSR/DSR, effective N, max-stat simulation, stationary
