@@ -8,7 +8,7 @@ signals.
 
 **Status:** M0–M1 complete; M2 is in progress. Its upstream price ingest,
 versioned Parquet publication, and single-candidate SMA reference engine are
-implemented along with core metrics; result files and run CLI remain. The
+implemented along with core metrics and run artifacts; the run CLI remains. The
 commands below exercise the generated data/quant example; the `griddy` search
 engine and `xma` compatibility command are M2–M6 work. Start with the
 [project plan](PROJECT_PLAN.md), [brief](PROJECT_BRIEF.md),
@@ -21,6 +21,8 @@ The [reference engine](docs/REFERENCE_ENGINE.md) covers single-candidate timing,
 cost, and cash behavior.
 The [core metrics](docs/CORE_METRICS.md) compare its net returns with aligned
 buy-and-hold.
+The [run artifact contract](docs/RUN_ARTIFACTS.md) covers result Parquet and the
+content-addressed run manifest.
 
 ```sh
 make setup
