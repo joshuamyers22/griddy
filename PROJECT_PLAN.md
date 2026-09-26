@@ -1,6 +1,6 @@
 # Project Plan: `griddy`
 
-- Status: M0–M1 complete; M2 is next
+- Status: M0–M1 complete; M2 in progress (first item complete)
 - Date: 2026-09-25
 - Owner: Josh Myers
 - Template: `joshuamyers22/production-project-template` @
@@ -442,6 +442,11 @@ double-capture result.
 
 ### M2 — Walking skeleton (S)
 
+First item completed 2026-09-26: strict Polars-first upstream CSV/frame ingest,
+optional pandas input adapter, and immutable versioned adjusted-close Parquet
+publication. See `docs/PARQUET_DATASETS.md`. The remaining tasks and exit
+criterion below are still open.
+
 **Tasks**
 - Strict ingest of the upstream-format CSV and publication as a versioned
   Parquet dataset.
@@ -617,6 +622,7 @@ scoping).
 | 006 | Inference defaults | Compatible hypothesis-family rule, PSR SE variant, bootstrap block-length rule, and primary selection criterion. |
 | 007 | Timing default | `lag = 1` for pre-specified conclusions. `lag = 0` allowed and labeled. |
 | 008 | Dataset contract | Long panel, roles, `available_at`, frequency/calendar declaration, and the yfinance extra boundary. |
+| 009 | Polars-first input boundary | Accepted for M2: Polars DataFrame/LazyFrame and CSV by default; narrow pandas conversion under an optional extra. |
 
 ## 10. Risks
 

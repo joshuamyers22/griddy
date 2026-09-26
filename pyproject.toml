@@ -11,6 +11,9 @@ dependencies = [
     "statsmodels>=0.15,<0.16",
 ]
 
+[project.optional-dependencies]
+pandas = ["pandas>=2.2,<4"]
+
 [project.urls]
 Repository = "https://github.com/joshuamyers22/griddy"
 Issues = "https://github.com/joshuamyers22/griddy/issues"

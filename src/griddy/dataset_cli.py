@@ -10,7 +10,13 @@ from pathlib import Path
 
 import polars as pl
 
-from .dataset import market_observation_contract, publish_dataset, verify_dataset
+from .dataset import (
+    market_observation_contract,
+    publish_dataset,
+    upstream_adjusted_close_contract,
+    verify_dataset,
+)
+from .upstream_prices import load_upstream_prices_csv, publish_upstream_prices
 
 
 def _load_market_csv(path: Path) -> tuple[pl.DataFrame, str]:
@@ -57,8 +63,23 @@ def main() -> int:
     publish.add_argument("--source-id", required=True)
     publish.add_argument("--revision", required=True)
     publish.add_argument("--created-at-utc", required=True)
+    upstream = subparsers.add_parser("publish-upstream")
+    upstream.add_argument("input", type=Path)
+    upstream.add_argument("root", type=Path)
+    upstream.add_argument("--dataset-version", required=True)
+    upstream.add_argument("--source-id", required=True)
+    upstream.add_argument("--revision", required=True)
+    upstream.add_argument("--created-at-utc", required=True)
+    upstream.add_argument("--quote-unit", required=True)
+    upstream.add_argument("--calendar", required=True)
+    upstream.add_argument("--legacy-symbol")
     verify = subparsers.add_parser("verify")
     verify.add_argument("dataset", type=Path)
+    verify.add_argument(
+        "--kind",
+        choices=("market-observation", "upstream-prices"),
+        default="market-observation",
+    )
     args = parser.parse_args()
     contract = market_observation_contract()
 
@@ -81,7 +102,36 @@ def main() -> int:
         )
         return 0
 
-    verified = verify_dataset(args.dataset, contract=contract)
+    if args.command == "publish-upstream":
+        prices = load_upstream_prices_csv(
+            args.input,
+            quote_unit=args.quote_unit,
+            calendar=args.calendar,
+            legacy_symbol=args.legacy_symbol,
+        )
+        destination = publish_upstream_prices(
+            prices,
+            args.root,
+            dataset_version=args.dataset_version,
+            source_id=args.source_id,
+            code_revision=args.revision,
+            created_at_utc=_created_at(args.created_at_utc, parser),
+        )
+        verified = verify_dataset(
+            destination, contract=upstream_adjusted_close_contract()
+        )
+        print(
+            f"dataset={destination} rows={verified.rows} files={verified.files} "
+            f"manifest_sha256={verified.manifest_sha256}"
+        )
+        return 0
+
+    selected_contract = (
+        upstream_adjusted_close_contract()
+        if args.kind == "upstream-prices"
+        else contract
+    )
+    verified = verify_dataset(args.dataset, contract=selected_contract)
     print(
         f"dataset={args.dataset} rows={verified.rows} files={verified.files} "
         f"manifest_sha256={verified.manifest_sha256}"
