@@ -17,8 +17,9 @@ This brief follows the `python-data-quant` archetype `PROJECT_BRIEF.md` fields.
   artifacts.
 - **Measurable success criteria:**
   1. The source-verified upstream reference run (597 signal rules, with exact
-     trade asset and input pinned at M1) and synthetic fixture matrix are
-     reproduced. Figures match to printed precision, and rows match to 1e-12
+     trade asset and input pinned in `docs/UPSTREAM_CAPTURE.md`) and the
+     synthetic fixture matrix are reproduced. Figures match to printed precision,
+     and rows match to 1e-12
      except for register-documented divergences. Vendor data stays out of
      default CI pending source-terms review.
   2. The MA family, expressed as pure configuration, is bit-identical to the
@@ -204,11 +205,11 @@ This brief follows the `python-data-quant` archetype `PROJECT_BRIEF.md` fields.
 
 ## Open decisions
 
-| Question | Decision deadline | Owner | ADR |
+| Question | Decision deadline | Owner | Decision or evidence |
 |---|---|---|---|
 | Project name: `griddy` | M0 | Josh | Decided |
 | License model: proprietary new code plus MIT upstream notice | M0 | Josh | 001 accepted |
-| Handling of upstream `prices.csv` in tests | M1 | Josh | 008 |
+| Handling of upstream `prices.csv` in tests | M1 | Josh | Decided: synthetic CI fixtures; upstream sample local and ignored (`docs/UPSTREAM_CAPTURE.md`) |
 | Search ceiling and memory budget defaults | M4 | Josh | 004 |
 | Primary selection criterion, PSR SE variant, trial family | M6 | Josh | 006 |
 | Numba adoption | M7 | Josh | 005 |

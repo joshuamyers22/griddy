@@ -10,8 +10,8 @@
 The upstream `xma` tool is the behavioral reference for the initial SMA family,
 but it has no pinned dependency set or automated tests in the source reviewed
 for the project plan. The plan also identifies behaviors that should be corrected
-rather than copied. Its 597-candidate worked example still needs an exact
-command, input hash, and environment capture at M1.
+instead of copied. Its 597-candidate worked example has an exact
+command, input hash, and environment capture in `docs/UPSTREAM_CAPTURE.md`.
 
 ## Options considered
 
@@ -41,6 +41,6 @@ become production behavior flags.
 
 ## Verification
 
-At M1, pin the 597-candidate command, trade asset, input hash, environment,
+M1 pinned the 597-candidate command, trade asset, input hash, environment,
 and counts. At M3, run synthetic parity and D1–D17 delta tests plus scalar versus
 block equivalence; never mark unavailable vendor-data checks as passed CI.

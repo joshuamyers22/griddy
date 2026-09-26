@@ -1,0 +1,5 @@
+# Imports needed for the pinned xma code and deterministic Parquet fixtures.
+# Deliberately unpinned here; upstream has no dependency lock.
+numpy
+pandas
+pyarrow

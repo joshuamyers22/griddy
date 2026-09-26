@@ -31,6 +31,7 @@ Git history provides the audit trail.
 |---|---|---|---|
 | `generated-scaffold` | This is the pinned template's `python-data-quant` starter, not yet the planned search engine or `xma` implementation. | `README.md`; `PROJECT_PLAN.md`; `src/griddy/` | 2026-09-25 |
 | `repository-bootstrap` | Public `joshuamyers22/griddy` has M0 branch, CI, signing, Actions, and security controls; solo ownership has a documented review exception. | `docs/REPOSITORY_BOOTSTRAP.md`; GitHub ruleset `24027427` | 2026-09-25 |
+| `upstream-oracle` | M1 captured the pinned `xma` run: 597 signal rules trade SPY, with 5,878 common observations through 2026-09-24. Synthetic fixtures are committed; vendor-derived captures stay ignored under `.work/`. | `docs/UPSTREAM_CAPTURE.md`; `tests/fixtures/upstream/manifest.json`; `tests/test_upstream_capture.py` | 2026-09-25 |
 
 ## Verified traps and failed approaches
 
@@ -40,4 +41,4 @@ No project-specific implementation trap is verified yet.
 
 | Key | Unresolved question or next evidence | Owner | Review by |
 |---|---|---|---|
-| `upstream-capture` | M1 must pin the 597-candidate command, input hash, and environment before treating the worked example as an oracle. | Josh Myers | M1 |
+| `upstream-parity` | M2–M3 must compare new engine outputs to the captured synthetic oracle and local vendor reference, recording any divergence. | Josh Myers | M2–M3 |
