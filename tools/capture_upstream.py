@@ -134,10 +134,10 @@ def run(*args: str, cwd: Path | None = None) -> str:
     ).stdout.strip()
 
 
-def prepare_upstream(source: str) -> None:
+def prepare_upstream() -> None:
     UPSTREAM_DIR.parent.mkdir(parents=True, exist_ok=True)
     if not UPSTREAM_DIR.exists():
-        run("git", "clone", "--no-checkout", source, str(UPSTREAM_DIR))
+        run("git", "clone", "--no-checkout", UPSTREAM_URL, str(UPSTREAM_DIR))
     run("git", "checkout", "--detach", UPSTREAM_SHA, cwd=UPSTREAM_DIR)
     if run("git", "rev-parse", "HEAD", cwd=UPSTREAM_DIR) != UPSTREAM_SHA:
         raise RuntimeError("upstream checkout is not the pinned commit")
@@ -156,7 +156,10 @@ def prepare_environment() -> Path:
     python = ENV_DIR / "bin" / "python"
     if not python.exists():
         run("uv", "venv", "--python", "3.12", str(ENV_DIR))
-    run("uv", "pip", "sync", "--python", str(python), str(LOCK))
+    try:
+        run("uv", "pip", "sync", "--offline", "--python", str(python), str(LOCK))
+    except subprocess.CalledProcessError:
+        run("uv", "pip", "sync", "--python", str(python), str(LOCK))
     return python
 
 
@@ -488,13 +491,12 @@ def worker(mode: str) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mode", choices=("synthetic", "vendor"), default="synthetic")
-    parser.add_argument("--upstream-source", default=UPSTREAM_URL)
     parser.add_argument("--worker", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args()
     if args.worker:
         worker(args.mode)
         return
-    prepare_upstream(args.upstream_source)
+    prepare_upstream()
     python = prepare_environment()
     subprocess.run(
         [str(python), str(Path(__file__).resolve()), "--worker", "--mode", args.mode],
