@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-pandas = ["pandas>=2.2,<4"]
+pandas = ["pandas>=3.1.1,<4"]
 
 [project.urls]
 Repository = "https://github.com/joshuamyers22/griddy"
